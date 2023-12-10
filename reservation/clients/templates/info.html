@@ -1,0 +1,10 @@
+{% include 'header.html' %}
+{%block 'head'%}
+    <title>{%block title %}Information Page{% endblock %}</title>
+{% endblock %}
+{% block 'body' %}
+<br><a href="{%url 'add'%}">Add Page</a>
+{% endblock %}
+
+
+
