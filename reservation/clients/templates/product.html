@@ -1,7 +1,17 @@
-<form action = "/product/" method = 'POST'>
-<table>
-    {% csrf_token %}
-    {{ form.as_table }}
-</table>
-    <input type = "submit">
+{% load crispy_forms_tags %}
+
+{% block 'head' %}
+    <title>{% block 'title' %}Product Page{% endblock %}</title>
+{%endblock%}
+{% block 'body' %}
+<h1> Product Page </h1>
+
+<form action="" method="GET">
+
+        {% csrf_token %}
+
+        {{ form crispy }}
+
+    <input type="submit" value="submit">
 </form>
+{% endblock %}

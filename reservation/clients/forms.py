@@ -1,11 +1,26 @@
-from django import forms
+from django.forms import ModelForm
+from .models import Client,ClientTypes,Product,Order
 
-product_category = [(1, "Food"), (2, "Snacks"), (3, "Drinks"), (4, "Hardware")]
+
+class ClientForm(ModelForm):
+    class Meta:
+        model = Client
+        fields = '__all__'
 
 
-class Product(forms.Form):
+class ClientTypesForm(ModelForm):
+    class Meta:
+        model = ClientTypes
+        fields = '__all__'
 
-    pName = forms.CharField(label="Name", label_suffix="-")
-    pCategory = forms.ChoiceField(choices=product_category, label="Category", label_suffix="-")
-    pDescription = forms.CharField(label="Description", widget=forms.Textarea(attrs={'rows': 5, 'cols': 40}))
-    pRating = forms.IntegerField(label="Rating", label_suffix="=")
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+
+class OrderForm(ModelForm):
+    class Meta:
+        model = Order
+        fields = '__all__'

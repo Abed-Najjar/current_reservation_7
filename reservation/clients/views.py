@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import Product
+from .forms import ClientForm,ClientTypesForm,ProductForm,OrderForm
 from django.http import HttpResponse
 from django.views import View
 
@@ -8,7 +8,14 @@ CATEGORY = ["Food", "Snacks", "Drinks", "Hardware"]
 
 
 def clients(request):
-    return render(request, "clients.html", {})
+    form = ClientForm()
+
+    if request.method == 'POST':
+        form = ClientForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+    return render(request, "clients.html", {'form':form})
 
 
 def info(request):
@@ -20,27 +27,30 @@ def add(request):
 
 
 def addProduct(request):
-
+    form = ProductForm()
     if request.method == 'POST':
-        form = Product(request.POST)
-
+        form = ProductForm(request.POST)
         if form.is_valid():
             return render(request, "product.html", {'form': form})
 
-    else:
-        return render(request, "product.html")
+
+    return render(request, "product.html", {'form':form})
 
 
-class ProductView(View):
-
-    def get(self, request):
-        form = Product()
-        return render(request, "product.html",{'form': form})
-
-    def post(self, request):
-        form = Product(request.POST)
-        num_products = request.session.get('num_products', 0) + 1
-        request.session['num_products'] = num_products
-
+def order(request):
+    form = OrderForm()
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
         if form.is_valid():
-            return render(request, "product.html", {'form': form})
+            return render(request, "order.html", {'form': form})
+
+    return render(request, "order.html", {'form': form})
+
+def cType(request):
+    form = ClientTypesForm()
+    if request.method == 'POST':
+        form = ClientTypesForm(request.POST)
+        if form.is_valid():
+            return render(request, "cType.html", {'form': form})
+
+    return render(request, "cType.html", {'form': form})
